@@ -1,6 +1,8 @@
 package com.tinqinacademy.hotel.api.operations.getavailablerooms;
 
 import com.tinqinacademy.hotel.api.base.OperationInput;
+import com.tinqinacademy.hotel.api.enumvalidation.BedSizeValidation;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -40,5 +42,6 @@ public class GetAvailableRoomsInput implements OperationInput {
 
     @NotEmpty
     @Builder.Default
-    private List<String> beds = new ArrayList<>();
+    @BedSizeValidation
+    private List<@Valid String> beds = new ArrayList<>();
 }

@@ -3,7 +3,9 @@ package com.tinqinacademy.hotel.api.operations.updateroompartially;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tinqinacademy.hotel.api.base.OperationInput;
+import com.tinqinacademy.hotel.api.enumvalidation.BedSizeValidation;
 import jakarta.annotation.Nullable;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -54,6 +56,7 @@ public class UpdateRoomPartiallyInput implements OperationInput {
     private BigDecimal price;
 
     @Builder.Default
-    private List<String> beds = new ArrayList<>();
+    @BedSizeValidation(optional = true)
+    private List<@Valid String> beds = new ArrayList<>();
 
 }

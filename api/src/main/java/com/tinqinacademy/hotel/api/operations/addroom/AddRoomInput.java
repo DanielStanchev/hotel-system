@@ -1,6 +1,8 @@
 package com.tinqinacademy.hotel.api.operations.addroom;
 
 import com.tinqinacademy.hotel.api.base.OperationInput;
+import com.tinqinacademy.hotel.api.enumvalidation.BedSizeValidation;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -51,5 +53,6 @@ public class AddRoomInput implements OperationInput {
     //additional so could create a room and insert beds in her
     @NotEmpty
     @Builder.Default
-    private List<String> beds = new ArrayList<>();
+    @BedSizeValidation
+    private List<@Valid String> beds = new ArrayList<>();
 }
