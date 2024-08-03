@@ -50,6 +50,7 @@ public class Booking extends BaseEntity {
     private User userBooked;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Builder.Default
     List<Guest> guests = new ArrayList<>();
 
 }
