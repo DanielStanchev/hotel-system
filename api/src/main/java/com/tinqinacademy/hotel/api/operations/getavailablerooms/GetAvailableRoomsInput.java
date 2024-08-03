@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.api.operations.getavailablerooms;
 
 import com.tinqinacademy.hotel.api.base.OperationInput;
+import com.tinqinacademy.hotel.api.enumvalidation.BathroomTypeValidation;
 import com.tinqinacademy.hotel.api.enumvalidation.BedSizeValidation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -38,10 +39,10 @@ public class GetAvailableRoomsInput implements OperationInput {
     private Integer bedCount;
 
     @NotNull
+    @BathroomTypeValidation
     private String bathroomType;
 
     @NotEmpty
     @Builder.Default
-    @BedSizeValidation
-    private List<@Valid String> beds = new ArrayList<>();
+    private List<@BedSizeValidation @Valid String> beds = new ArrayList<>();
 }

@@ -2,6 +2,7 @@ package com.tinqinacademy.hotel.api.operations.updateroom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinqinacademy.hotel.api.base.OperationInput;
+import com.tinqinacademy.hotel.api.enumvalidation.BathroomTypeValidation;
 import com.tinqinacademy.hotel.api.enumvalidation.BedSizeValidation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -40,6 +41,7 @@ public class UpdateRoomInput implements OperationInput {
     private Integer bedCount;
 
     @NotNull
+    @BathroomTypeValidation
     @Size(min = 2, max = 15,message = "Enter a valid bathroom type.")
     private String bathroomType;
 
@@ -59,7 +61,6 @@ public class UpdateRoomInput implements OperationInput {
     //additional so admin could update beds in the room as well
     @NotEmpty
     @Builder.Default
-    @BedSizeValidation
-    private List<@Valid String> beds = new ArrayList<>();
+    private List<@BedSizeValidation @Valid String> beds = new ArrayList<>();
 }
 
