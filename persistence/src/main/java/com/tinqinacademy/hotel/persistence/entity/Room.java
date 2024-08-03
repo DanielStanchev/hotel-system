@@ -45,6 +45,7 @@ public class Room extends BaseEntity {
     private BigDecimal price;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Builder.Default
     private List<Bed> beds = new ArrayList<>();
 
 
