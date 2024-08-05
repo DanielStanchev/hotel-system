@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.api.enumvalidation;
+package com.tinqinacademy.hotel.api.customvalidation.bathroomtypevalidation;
 
 import com.tinqinacademy.hotel.api.enums.BathroomType;
 import jakarta.validation.ConstraintValidator;
