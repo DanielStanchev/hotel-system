@@ -98,7 +98,7 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
     }
 
     private User getUser() {
-       return userRepository.findById(UUID.fromString("bea6a20b-09c6-4c31-8080-6371c80c3513"))
+       return userRepository.findById(UUID.fromString("af5f3a86-9c08-4f86-b25f-1bd4a45f366a"))
             .orElseThrow(()-> new NotFoundException(ErrorMessages.USER_NOT_FOUND));
     }
 }

@@ -1,11 +1,13 @@
 package com.tinqinacademy.hotel.core.processors;
 
+import com.tinqinacademy.hotel.api.exceptionmodel.ErrorMessages;
 import com.tinqinacademy.hotel.api.exceptionmodel.ErrorWrapper;
 import com.tinqinacademy.hotel.api.operations.getavailablerooms.GetAvailableRooms;
 import com.tinqinacademy.hotel.api.operations.getavailablerooms.GetAvailableRoomsInput;
 import com.tinqinacademy.hotel.api.operations.getavailablerooms.GetAvailableRoomsOutput;
 import com.tinqinacademy.hotel.core.base.BaseOperationProcessor;
 import com.tinqinacademy.hotel.core.exception.ErrorMapper;
+import com.tinqinacademy.hotel.core.exception.exceptions.NotFoundException;
 import com.tinqinacademy.hotel.persistence.entity.Room;
 import com.tinqinacademy.hotel.persistence.enums.BathroomType;
 import com.tinqinacademy.hotel.persistence.enums.BedSize;
@@ -24,6 +26,7 @@ import java.util.List;
 import static io.vavr.API.$;
 import static io.vavr.API.Case;
 import static io.vavr.API.Match;
+import static io.vavr.Predicates.instanceOf;
 
 @Slf4j
 @Service
@@ -54,6 +57,7 @@ public class GetAvailableRoomsOperationProcessor extends BaseOperationProcessor 
         return result;
 
         }).toEither().mapLeft(throwable -> Match(throwable).of(
+            Case($(instanceOf(NotFoundException.class)), errorMapper.handleError(throwable, HttpStatus.NOT_FOUND)),
             Case($(), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST))
         ));
     }
@@ -77,7 +81,7 @@ public class GetAvailableRoomsOperationProcessor extends BaseOperationProcessor 
                                                                       BathroomType.getByCode(input.getBathroomType()));
         if (availableRooms.isEmpty()) {
             log.info("No available rooms found for the given criteria.");
-            return Collections.emptyList();
+            throw new NotFoundException(ErrorMessages.NO_ROOMS_AVAILABLE);
         }
         return availableRooms;
     }

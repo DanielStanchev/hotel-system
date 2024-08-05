@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.api.enumvalidation;
+package com.tinqinacademy.hotel.api.customvalidation.bedsizevalidation;
 
 import com.tinqinacademy.hotel.api.enums.BedSize;
 import jakarta.validation.ConstraintValidator;

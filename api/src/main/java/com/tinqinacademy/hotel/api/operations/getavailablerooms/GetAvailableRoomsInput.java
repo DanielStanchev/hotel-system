@@ -1,8 +1,8 @@
 package com.tinqinacademy.hotel.api.operations.getavailablerooms;
 
 import com.tinqinacademy.hotel.api.base.OperationInput;
-import com.tinqinacademy.hotel.api.enumvalidation.BathroomTypeValidation;
-import com.tinqinacademy.hotel.api.enumvalidation.BedSizeValidation;
+import com.tinqinacademy.hotel.api.customvalidation.bathroomtypevalidation.BathroomTypeValidation;
+import com.tinqinacademy.hotel.api.customvalidation.bedsizevalidation.BedSizeValidation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
