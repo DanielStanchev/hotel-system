@@ -3,7 +3,6 @@ package com.tinqinacademy.hotel.api.operations.addroom;
 import com.tinqinacademy.hotel.api.base.OperationInput;
 import com.tinqinacademy.hotel.api.customvalidation.bathroomtypevalidation.BathroomTypeValidation;
 import com.tinqinacademy.hotel.api.customvalidation.bedsizevalidation.BedSizeValidation;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -17,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
