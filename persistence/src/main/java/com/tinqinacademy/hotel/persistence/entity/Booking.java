@@ -16,6 +16,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -31,23 +32,26 @@ public class Booking extends BaseEntity {
     @Column(name = "start_date")
     private LocalDate startDate;
 
-    @Column(name = "end_date",nullable = false)
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @Column(name = "first_name",nullable = false)
-    private String firstName;
+    //    @Column(name = "first_name",nullable = false)
+    //    private String firstName;
+    //
+    //    @Column(name = "last_name",nullable = false)
+    //    private String lastName;
+    //
+    //    @Column(name = "phone_no",nullable = false)
+    //    private String phoneNo;
 
-    @Column(name = "last_name",nullable = false)
-    private String lastName;
-
-    @Column(name = "phone_no",nullable = false)
-    private String phoneNo;
+    //    @ManyToOne
+    //    private User userBooked;
 
     @ManyToOne
     private Room roomBooked;
 
-    @ManyToOne
-    private User userBooked;
+    @Column(name = "user_id", nullable = false)
+    private UUID userId;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Builder.Default

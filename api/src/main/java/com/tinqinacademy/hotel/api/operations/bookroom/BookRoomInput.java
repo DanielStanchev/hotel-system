@@ -6,7 +6,6 @@ import com.tinqinacademy.hotel.api.base.OperationInput;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,15 +38,6 @@ public class BookRoomInput implements OperationInput {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    @JsonIgnore
-    @Size(min = 2, max = 30,message = "First name should be between 2 and 30 symbols.")
-    private String firstName;
-
-    @JsonIgnore
-    @Size(min = 2,max = 30,message = "Last name should be between 2 and 30 symbols.")
-    private String lastName;
-
-    @JsonIgnore
-    @Size(min = 2,max = 30,message = "Phone number should be between 2 and 30 symbols.")
-    private String phoneNo;
+    @NotNull
+    private String userId;
 }

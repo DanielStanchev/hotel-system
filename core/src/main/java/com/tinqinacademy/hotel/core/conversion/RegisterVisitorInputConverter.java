@@ -9,6 +9,7 @@ public class RegisterVisitorInputConverter extends BaseConverter<RegisterVisitor
     @Override
     public Guest.GuestBuilder convertObject(RegisterVisitorInput input) {
         return Guest.builder()
+            .phoneNo(input.getPhoneNo())
             .birthDate(input.getBirthDate())
             .firstName(input.getFirstName())
             .lastName(input.getLastName())

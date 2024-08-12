@@ -98,9 +98,7 @@ public class HotelController extends BaseController{
         BookRoomInput input = BookRoomInput.builder()
             .roomId(roomId)
             .endDate(bookRoomInput.getEndDate())
-            .firstName(bookRoomInput.getFirstName())
-            .lastName(bookRoomInput.getLastName())
-            .phoneNo(bookRoomInput.getPhoneNo())
+            .userId(bookRoomInput.getUserId())
             .startDate(bookRoomInput.getStartDate())
             .build();
 
