@@ -84,7 +84,7 @@ public class ReportVisitorsInfoOperationProcessor implements ReportVisitorsInfo 
                 .endDate(booking.getEndDate())
                 .firstName(guest.getFirstName())
                 .lastName(guest.getLastName())
-                .phoneNo(booking.getPhoneNo())
+                //.phoneNo(booking.getPhoneNo())
                 .idCardNo(guest.getIdCardNo())
                 .idCardValidity(guest.getIdCardValidity())
                 .idCardIssueAuthority(guest.getIdCardIssueAuthority())

@@ -10,10 +10,8 @@ import com.tinqinacademy.hotel.core.exception.ErrorMapper;
 import com.tinqinacademy.hotel.core.exception.exceptions.NotFoundException;
 import com.tinqinacademy.hotel.persistence.entity.Booking;
 import com.tinqinacademy.hotel.persistence.entity.Room;
-import com.tinqinacademy.hotel.persistence.entity.User;
 import com.tinqinacademy.hotel.persistence.repository.BookingRepository;
 import com.tinqinacademy.hotel.persistence.repository.RoomRepository;
-import com.tinqinacademy.hotel.persistence.repository.UserRepository;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import jakarta.validation.Validator;
@@ -22,8 +20,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.UUID;
 
 import static io.vavr.API.$;
@@ -37,14 +33,12 @@ import static io.vavr.Predicates.instanceOf;
 public class BookRoomOperationProcessor extends BaseOperationProcessor implements BookRoom {
 
     private final RoomRepository roomRepository;
-    private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
 
     public BookRoomOperationProcessor(ConversionService conversionService, Validator validator,ErrorMapper errorMapper,
-                                      RoomRepository roomRepository, UserRepository userRepository, BookingRepository bookingRepository) {
+                                      RoomRepository roomRepository, BookingRepository bookingRepository) {
         super(validator, conversionService,errorMapper);
         this.roomRepository = roomRepository;
-        this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
     }
 
@@ -57,13 +51,10 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
     private Either<ErrorWrapper, BookRoomOutput> bookRoom(BookRoomInput input) {
         return Try.of(()-> {
 
-            User userBookingTheRoom = getUser();
-            checkIfUserIsUnderage(userBookingTheRoom);
             Room roomToBeBooked = getRoom(input);
-            Booking bookingToSave = getConvertedBooking(input, userBookingTheRoom, roomToBeBooked);
+            Booking bookingToSave = getConvertedBooking(input, roomToBeBooked);
             bookingRepository.save(bookingToSave);
             BookRoomOutput result = BookRoomOutput.builder().build();
-
             log.info("End createRoom output:{}.", result);
             return result;
 
@@ -74,13 +65,9 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
         ));
     }
 
-    private Booking getConvertedBooking(BookRoomInput input, User userBookingTheRoom, Room roomToBeBooked) {
+    private Booking getConvertedBooking(BookRoomInput input,Room roomToBeBooked) {
         return conversionService.convert(input, Booking.BookingBuilder.class)
-            .userBooked(userBookingTheRoom)
             .roomBooked(roomToBeBooked)
-            .firstName(userBookingTheRoom.getFirstName())
-            .lastName(userBookingTheRoom.getLastName())
-            .phoneNo(userBookingTheRoom.getPhoneNo())
             .build();
     }
 
@@ -88,17 +75,5 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
         return roomRepository.findById(UUID.fromString(input.getRoomId()))
             .orElseThrow(()-> new NotFoundException(ErrorMessages.ROOM_NOT_FOUND));
     }
-
-    private static void checkIfUserIsUnderage(User userBookingTheRoom) {
-        LocalDate birthDate = userBookingTheRoom.getBirthDate();
-        int age = Period.between(birthDate, LocalDate.now()).getYears();
-        if (age < 18) {
-            throw new IllegalArgumentException(ErrorMessages.UNDERAGE_USER);
-        }
-    }
-
-    private User getUser() {
-       return userRepository.findById(UUID.fromString("af5f3a86-9c08-4f86-b25f-1bd4a45f366a"))
-            .orElseThrow(()-> new NotFoundException(ErrorMessages.USER_NOT_FOUND));
-    }
 }
+

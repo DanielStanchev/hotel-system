@@ -15,10 +15,9 @@ import java.util.UUID;
 public interface BookingRepository extends JpaRepository<Booking, UUID>, JpaSpecificationExecutor<Booking> {
 
     @Query("SELECT b FROM Booking b JOIN Room r on b.roomBooked.id = r.id "
-        + "WHERE b.startDate = :startDate AND b.endDate = :endDate AND b.phoneNo = :phoneNo AND r.roomNo = :roomNo")
+        + "WHERE b.startDate = :startDate AND b.endDate = :endDate AND r.roomNo = :roomNo")
     Optional<Booking> findBookingByInputCriteria(@Param("startDate") LocalDate startDate,
                                                 @Param("endDate")LocalDate endDate,
-                                                @Param("phoneNo")String phoneNo,
                                                 @Param("roomNo")String roomNo);
 
     List<Booking> findBookingByRoomBookedId(UUID id);

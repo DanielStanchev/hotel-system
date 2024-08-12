@@ -30,6 +30,9 @@ public class Guest extends BaseEntity {
     @Column(name = "last_name",nullable = false)
     private String lastName;
 
+    @Column(name = "phone_no",nullable = true)
+    private String phoneNo;
+
     @Column(name = "id_card_validity",nullable = true)
     private LocalDate idCardValidity;
 

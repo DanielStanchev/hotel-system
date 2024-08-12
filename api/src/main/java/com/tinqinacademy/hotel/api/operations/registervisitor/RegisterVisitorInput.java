@@ -56,7 +56,6 @@ public class RegisterVisitorInput implements OperationInput {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate idCardIssueDate;
 
-    @NotNull
     @Size(min = 2, max = 30,message = "Phone number should be between 2 and 30 symbols.")
     private String phoneNo;
 
@@ -64,7 +63,6 @@ public class RegisterVisitorInput implements OperationInput {
     @Size(min = 2, max = 20,message = "Room number should be between 2 and 20 symbols.")
     private String roomNo;
 
-    //addition as per task
     @NotNull
     @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd")

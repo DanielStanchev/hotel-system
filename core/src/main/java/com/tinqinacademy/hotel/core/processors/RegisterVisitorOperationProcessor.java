@@ -70,7 +70,7 @@ public class RegisterVisitorOperationProcessor extends BaseOperationProcessor im
 
     private Booking getBookingByInputCriteria(RegisterVisitorInput input) {
         return bookingRepository
-            .findBookingByInputCriteria(input.getStartDate(), input.getEndDate(), input.getPhoneNo(), input.getRoomNo())
+            .findBookingByInputCriteria(input.getStartDate(), input.getEndDate(),input.getRoomNo())
             .orElseThrow(()-> new NotFoundException(ErrorMessages.BOOKING_NOT_FOUND));
     }
 }
