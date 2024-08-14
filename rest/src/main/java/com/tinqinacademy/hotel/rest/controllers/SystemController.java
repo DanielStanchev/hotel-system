@@ -99,9 +99,9 @@ public class SystemController extends BaseController{
         @RequestParam(required = false) Optional<String> lastName,
         @RequestParam(required = false) Optional<String> phoneNo,
         @RequestParam(required = false) Optional<String> idCardNo,
-        @RequestParam(required = false) Optional<LocalDate> idCardValidity,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> idCardValidity,
         @RequestParam(required = false) Optional<String> idCardIssueAuthority,
-        @RequestParam(required = false) Optional<LocalDate> cardIssueDate,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> cardIssueDate,
         @RequestParam String roomNo
         ) {
         ReportVisitorsInfoInput input = ReportVisitorsInfoInput.builder()

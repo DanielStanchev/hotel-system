@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @Builder
 public class ReportVisitorsInfoOutputInfo {
 
-    //private String id;
     private LocalDate startDate;
     private LocalDate endDate;
     private String firstName;
