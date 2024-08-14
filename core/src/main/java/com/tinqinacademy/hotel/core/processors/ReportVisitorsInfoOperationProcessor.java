@@ -75,16 +75,17 @@ public class ReportVisitorsInfoOperationProcessor implements ReportVisitorsInfo 
                         boolean idCardValidityMatches = input.getIdCardValidity() == null || Objects.equals(guest.getIdCardValidity(), input.getIdCardValidity());
                         boolean idCardIssueAuthorityMatches = input.getIdCardIssueAuthority() == null || Objects.equals(guest.getIdCardIssueAuthority(), input.getIdCardIssueAuthority());
                         boolean cardIssueDateMatches = input.getCardIssueDate() == null || Objects.equals(guest.getIdCardIssueDate(), input.getCardIssueDate());
+                        boolean phoneNumberMatches = input.getPhoneNo() == null || Objects.equals(guest.getPhoneNo(), input.getPhoneNo());
 
                         return firstNameMatches && lastNameMatches && idCardNoMatches &&
-                            idCardValidityMatches && idCardIssueAuthorityMatches && cardIssueDateMatches;
+                            idCardValidityMatches && idCardIssueAuthorityMatches && cardIssueDateMatches&&phoneNumberMatches;
                     })
                     .map(guest -> ReportVisitorsInfoOutputInfo.builder()
                 .startDate(booking.getStartDate())
                 .endDate(booking.getEndDate())
                 .firstName(guest.getFirstName())
                 .lastName(guest.getLastName())
-                //.phoneNo(booking.getPhoneNo())
+                 .phoneNo(guest.getPhoneNo())
                 .idCardNo(guest.getIdCardNo())
                 .idCardValidity(guest.getIdCardValidity())
                 .idCardIssueAuthority(guest.getIdCardIssueAuthority())
