@@ -25,6 +25,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.vavr.control.Either;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -92,8 +93,8 @@ public class SystemController extends BaseController{
         @ApiResponse(responseCode = "404", description = "Not found")})
     @GetMapping(RestApiRoutes.SYSTEM_REPORT_VISITOR_INFO)
     public ResponseEntity<?> report(
-        @RequestParam(required = false) Optional<LocalDate> startDate,
-        @RequestParam(required = false) Optional<LocalDate> endDate,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> startDate,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> endDate,
         @RequestParam(required = false) Optional<String> firstName,
         @RequestParam(required = false) Optional<String> lastName,
         @RequestParam(required = false) Optional<String> phoneNo,
