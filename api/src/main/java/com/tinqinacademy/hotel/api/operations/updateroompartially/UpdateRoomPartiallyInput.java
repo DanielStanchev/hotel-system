@@ -44,20 +44,24 @@ public class UpdateRoomPartiallyInput implements OperationInput {
 
     @Size(min = 2, max = 15, message = "Enter a valid bathroom type.")
     @BathroomTypeValidation(optional = true)
+    @Nullable
     private String bathroomType;
 
     @Min(value = -2, message = "Minimum floor is -2.")
     @Max(value = 16, message = "Maximum floor is 16.")
+    @Nullable
     private Integer floor;
 
-
     @Size(min = 2, max = 20, message = "Room number should be between 2 and 20 symbols.")
+    @Nullable
     private String roomNo;
 
     @Positive(message = "Price should be positive.")
+    @Nullable
     private BigDecimal price;
 
     @Builder.Default
+    @Nullable
     private List<@BedSizeValidation(optional = true) @Valid String> beds = new ArrayList<>();
 
 }

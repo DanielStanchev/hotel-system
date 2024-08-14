@@ -65,7 +65,7 @@ public class UpdateRoomPartiallyOperationProcessor extends BaseOperationProcesso
                 .id(String.valueOf(roomToUpdate.getId()))
                 .build();
 
-        log.info("Start updateRoomPartially output:{}.", result);
+        log.info("End updateRoomPartially output:{}.", result);
          return result;
         }).toEither().mapLeft(throwable -> Match(throwable).of(
             Case($(instanceOf(IllegalArgumentException.class)), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST)),
