@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tinqinacademy.hotel.api.exceptionmodel.ErrorWrapper;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoom;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
@@ -20,6 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.vavr.control.Either;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -55,11 +57,12 @@ public class HotelController extends BaseController{
         @ApiResponse(responseCode = "200", description = "OK"),
         @ApiResponse(responseCode = "404", description = "Not found")})
     @GetMapping(RestApiRoutes.HOTEL_GET_AVAILABLE_ROOMS)
-    public ResponseEntity<?> getAvailableRooms(                      @RequestParam(value = "startDate") LocalDate startDate,
-                                                                     @RequestParam(value = "endDate") LocalDate endDate,
-                                                                     @RequestParam(value = "bedCount") Integer bedCount,
-                                                                     @RequestParam(value = "beds") List<String> beds,
-                                                                     @RequestParam(value = "bathroomType") String bathroomType) {
+    public ResponseEntity<?> getAvailableRooms(@RequestParam(value = "startDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                               @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate endDate,
+                                               @RequestParam(value = "bedCount") Integer bedCount,
+                                               @RequestParam(value = "beds") List<String> beds,
+                                               @RequestParam(value = "bathroomType") String bathroomType) {
+
         GetAvailableRoomsInput input = GetAvailableRoomsInput.builder()
             .startDate(startDate)
             .endDate(endDate)

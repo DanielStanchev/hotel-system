@@ -30,11 +30,11 @@ import java.util.List;
 public class GetAvailableRoomsInput implements OperationInput {
 
     @NotNull(message = "Start date cannot be null.")
-    @JsonFormat(pattern = "yyyy-MM-dd", shape=JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @NotNull(message = "End date cannot be null.")
-    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
     @NotNull(message = "Bed count cannot be null.")

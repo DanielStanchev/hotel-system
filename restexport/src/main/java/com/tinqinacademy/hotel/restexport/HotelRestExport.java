@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.restexport;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tinqinacademy.hotel.api.operations.addroom.AddRoomInput;
 import com.tinqinacademy.hotel.api.operations.addroom.AddRoomOutput;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
@@ -17,6 +18,7 @@ import com.tinqinacademy.hotel.api.operations.updateroompartially.UpdateRoomPart
 import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfoOutput;
 import com.tinqinacademy.hotel.api.restapiroutes.RestApiRoutes;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,8 +36,8 @@ import java.util.Optional;
 public interface HotelRestExport {
 
      @GetMapping(RestApiRoutes.HOTEL_GET_AVAILABLE_ROOMS)
-     GetAvailableRoomsOutput getAvailableRooms(@RequestParam(value = "startDate") LocalDate startDate,
-                                               @RequestParam(value = "endDate") LocalDate endDate,
+     GetAvailableRoomsOutput getAvailableRooms(@RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate,
+                                               @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate endDate,
                                                @RequestParam(value = "bedCount") Integer bedCount,
                                                @RequestParam(value = "beds") List<String> beds,
                                                @RequestParam(value = "bathroomType") String bathroomType);
@@ -55,8 +57,8 @@ public interface HotelRestExport {
 
     @GetMapping(RestApiRoutes.SYSTEM_REPORT_VISITOR_INFO)
     ReportVisitorsInfoOutput report(
-        @RequestParam(required = false) Optional<LocalDate> startDate,
-        @RequestParam(required = false) Optional<LocalDate> endDate,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> startDate,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> endDate,
         @RequestParam(required = false) Optional<String> firstName,
         @RequestParam(required = false) Optional<String> lastName,
         @RequestParam(required = false) Optional<String> phoneNo,
