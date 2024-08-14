@@ -2,10 +2,10 @@ package com.tinqinacademy.hotel.core.processors;
 
 import com.tinqinacademy.hotel.api.exceptionmodel.ErrorMessages;
 import com.tinqinacademy.hotel.api.exceptionmodel.ErrorWrapper;
-import com.tinqinacademy.hotel.api.operations.visitorreportinfo.ReportVisitorsInfo;
-import com.tinqinacademy.hotel.api.operations.visitorreportinfo.ReportVisitorsInfoInput;
-import com.tinqinacademy.hotel.api.operations.visitorreportinfo.ReportVisitorsInfoOutput;
-import com.tinqinacademy.hotel.api.operations.visitorreportinfo.ReportVisitorsInfoOutputInfo;
+import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfo;
+import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfoInput;
+import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfoOutput;
+import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfoOutputInfo;
 import com.tinqinacademy.hotel.core.exception.ErrorMapper;
 import com.tinqinacademy.hotel.core.exception.exceptions.NotFoundException;
 import com.tinqinacademy.hotel.persistence.entity.Booking;

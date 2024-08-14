@@ -1,5 +1,6 @@
-package com.tinqinacademy.hotel.api.operations.visitorreportinfo;
+package com.tinqinacademy.hotel.api.operations.reportvisitorinfo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tinqinacademy.hotel.api.base.OperationInput;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,10 +22,10 @@ import java.time.LocalDate;
 @Builder
 public class ReportVisitorsInfoInput implements OperationInput {
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape=JsonFormat.Shape.STRING)
     private LocalDate startDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate endDate;
 
     @Size(min = 2, max = 30, message = "First name should be between 2 and 30 symbols.")
@@ -39,12 +40,12 @@ public class ReportVisitorsInfoInput implements OperationInput {
     @Size(min = 2, max = 30,message = "ID card number should be between 2 and 30 symbols.")
     private String idCardNo;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate idCardValidity;
 
     private String idCardIssueAuthority;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate cardIssueDate;
 
     @NotNull

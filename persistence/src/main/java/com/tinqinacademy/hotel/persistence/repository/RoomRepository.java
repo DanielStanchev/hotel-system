@@ -15,11 +15,22 @@ import java.util.UUID;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, UUID> {
 
-    @Query("SELECT r FROM Room r JOIN Booking b ON r.id = b.roomBooked.id "
-        + "WHERE SIZE(r.beds) = :bedCount "
-        + "AND r.bathroomType = :bathroomType "
-        + "AND b.startDate <= :startDate AND b.endDate >= :endDate "
-        + "AND EXISTS (SELECT bed FROM r.beds bed WHERE bed.bedSize IN :beds)")
+    @Query(
+            "SELECT r FROM Room r " +
+            "WHERE SIZE(r.beds) = :bedCount " +
+            "AND r.bathroomType = :bathroomType " +
+            "AND r NOT IN (" +
+            "  SELECT b.roomBooked FROM Booking b " +
+            "  WHERE b.roomBooked = r " +
+            "  AND (" +
+            "    (b.startDate >= :startDate AND b.startDate <= :endDate) OR " +
+            "    (b.endDate >= :startDate AND b.endDate <= :endDate) OR " +
+            "    (b.startDate <= :startDate AND b.endDate >= :endDate)" +
+            "  )" +
+            ") " +
+            "AND EXISTS (" +
+            "  SELECT bed FROM r.beds bed WHERE bed.bedSize IN :beds" +
+            ")")
     List<Room> findRoomByCriteria(@Param("startDate") LocalDate startDate,
                                   @Param("endDate") LocalDate endDate,
                                   @Param("bedCount") Integer bedCount,
