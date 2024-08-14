@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotel.api.operations.visitorreportinfo;
+package com.tinqinacademy.hotel.api.operations.reportvisitorinfo;
 
 import com.tinqinacademy.hotel.api.base.OperationOutput;
 import lombok.AllArgsConstructor;

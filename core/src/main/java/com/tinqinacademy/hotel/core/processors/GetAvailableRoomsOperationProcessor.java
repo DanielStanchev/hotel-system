@@ -70,7 +70,7 @@ public class GetAvailableRoomsOperationProcessor extends BaseOperationProcessor 
 
     private static List<String> mapRoomsToStringValues(List<Room> availableRooms) {
         return availableRooms.stream()
-            .map(Room::toString)
+            .map(room -> room.getId().toString())
             .toList();
     }
 

@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotel.api.operations.registervisitor;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tinqinacademy.hotel.api.base.OperationInput;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
@@ -26,12 +27,12 @@ public class RegisterVisitorInput implements OperationInput {
 
     @NotNull
     @FutureOrPresent(message = "Start date should be present or future.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape=JsonFormat.Shape.STRING)
     private LocalDate startDate;
 
     @NotNull
     @FutureOrPresent(message = "End date should be present or future.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate endDate;
 
     @NotNull
@@ -43,7 +44,7 @@ public class RegisterVisitorInput implements OperationInput {
     private String lastName;
 
     @FutureOrPresent(message = "ID card validity should be present or future.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate idCardValidity;
 
     @Size(min = 2, max = 30,message = "ID card issue authority should be between 2 and 30 symbols.")
@@ -53,7 +54,7 @@ public class RegisterVisitorInput implements OperationInput {
     private String idCardNo;
 
     @PastOrPresent(message = "Card issue date should be past or present.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate idCardIssueDate;
 
     @Size(min = 2, max = 30,message = "Phone number should be between 2 and 30 symbols.")
@@ -65,6 +66,6 @@ public class RegisterVisitorInput implements OperationInput {
 
     @NotNull
     @Past
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate birthDate;
 }

@@ -14,7 +14,7 @@ import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.updateroompartially.UpdateRoomPartiallyInput;
 import com.tinqinacademy.hotel.api.operations.updateroompartially.UpdateRoomPartiallyOutput;
-import com.tinqinacademy.hotel.api.operations.visitorreportinfo.ReportVisitorsInfoOutput;
+import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfoOutput;
 import com.tinqinacademy.hotel.api.restapiroutes.RestApiRoutes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +37,7 @@ public interface HotelRestExport {
      GetAvailableRoomsOutput getAvailableRooms(@RequestParam(value = "startDate") LocalDate startDate,
                                                @RequestParam(value = "endDate") LocalDate endDate,
                                                @RequestParam(value = "bedCount") Integer bedCount,
-                                               @RequestParam(value = "bedSize") List<String> beds,
+                                               @RequestParam(value = "beds") List<String> beds,
                                                @RequestParam(value = "bathroomType") String bathroomType);
 
     @GetMapping(RestApiRoutes.HOTEL_GET_AVAILABLE_ROOMS_BY_ID)

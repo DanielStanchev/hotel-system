@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotel.api.operations.bookroom;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinqinacademy.hotel.api.base.OperationInput;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -30,12 +31,12 @@ public class BookRoomInput implements OperationInput {
 
     @NotNull
     @FutureOrPresent(message = "Start date should be present or future.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape=JsonFormat.Shape.STRING)
     private LocalDate startDate;
 
     @NotNull
     @FutureOrPresent(message = "Start date should be present or future.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",shape=JsonFormat.Shape.STRING)
     private LocalDate endDate;
 
     @NotNull

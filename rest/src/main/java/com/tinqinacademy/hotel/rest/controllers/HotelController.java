@@ -55,17 +55,17 @@ public class HotelController extends BaseController{
         @ApiResponse(responseCode = "200", description = "OK"),
         @ApiResponse(responseCode = "404", description = "Not found")})
     @GetMapping(RestApiRoutes.HOTEL_GET_AVAILABLE_ROOMS)
-    public ResponseEntity<?> getAvailableRooms(@RequestParam(value = "startDate") LocalDate startDate,
+    public ResponseEntity<?> getAvailableRooms(                      @RequestParam(value = "startDate") LocalDate startDate,
                                                                      @RequestParam(value = "endDate") LocalDate endDate,
                                                                      @RequestParam(value = "bedCount") Integer bedCount,
-                                                                     @RequestParam(value = "bedSize") List<String> beds,
+                                                                     @RequestParam(value = "beds") List<String> beds,
                                                                      @RequestParam(value = "bathroomType") String bathroomType) {
         GetAvailableRoomsInput input = GetAvailableRoomsInput.builder()
             .startDate(startDate)
             .endDate(endDate)
             .bedCount(bedCount)
-            .bathroomType(bathroomType)
             .beds(beds)
+            .bathroomType(bathroomType)
             .build();
 
         Either<ErrorWrapper,GetAvailableRoomsOutput> output = getAvailableRooms.process(input);
