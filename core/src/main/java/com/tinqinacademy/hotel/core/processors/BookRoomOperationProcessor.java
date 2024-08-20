@@ -20,6 +20,8 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import static io.vavr.API.$;
@@ -35,9 +37,9 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
 
-    public BookRoomOperationProcessor(ConversionService conversionService, Validator validator,ErrorMapper errorMapper,
+    public BookRoomOperationProcessor(ConversionService conversionService, Validator validator, ErrorMapper errorMapper,
                                       RoomRepository roomRepository, BookingRepository bookingRepository) {
-        super(validator, conversionService,errorMapper);
+        super(validator, conversionService, errorMapper);
         this.roomRepository = roomRepository;
         this.bookingRepository = bookingRepository;
     }
@@ -49,23 +51,36 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
     }
 
     private Either<ErrorWrapper, BookRoomOutput> bookRoom(BookRoomInput input) {
-        return Try.of(()-> {
+        return Try.of(() -> {
 
-            Room roomToBeBooked = getRoom(input);
-            Booking bookingToSave = getConvertedBooking(input, roomToBeBooked);
-            bookingRepository.save(bookingToSave);
-            BookRoomOutput result = BookRoomOutput.builder().build();
-            log.info("End createRoom output:{}.", result);
-            return result;
+                Room roomToBeBooked = getRoom(input);
+                checkIfRoomHasAlreadyBookingForWantedDates(input, roomToBeBooked);
+                Booking bookingToSave = getConvertedBooking(input, roomToBeBooked);
+                bookingRepository.save(bookingToSave);
+                BookRoomOutput result = BookRoomOutput.builder().build();
+                log.info("End createRoom output:{}.", result);
+                return result;
 
-        }).toEither().mapLeft(throwable -> Match(throwable).of(
-            Case($(instanceOf(NotFoundException.class)), errorMapper.handleError(throwable, HttpStatus.NOT_FOUND)),
-            Case($(instanceOf(IllegalArgumentException.class)), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST)),
-            Case($(), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST))
-        ));
+            })
+            .toEither()
+            .mapLeft(throwable -> Match(throwable).of(
+                Case($(instanceOf(NotFoundException.class)), errorMapper.handleError(throwable, HttpStatus.NOT_FOUND)),
+                Case($(instanceOf(IllegalArgumentException.class)), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST)),
+                Case($(), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST))));
     }
 
-    private Booking getConvertedBooking(BookRoomInput input,Room roomToBeBooked) {
+    private void checkIfRoomHasAlreadyBookingForWantedDates(BookRoomInput input, Room roomToBeBooked) {
+        List<Booking> allRoomBookings = bookingRepository.findAllRoomBookings(roomToBeBooked.getId());
+        boolean isBooked = allRoomBookings.stream()
+            .anyMatch(booking -> input.getStartDate()
+                .isBefore(booking.getEndDate()) && input.getEndDate()
+                .isAfter(booking.getStartDate()));
+        if (isBooked) {
+            throw new IllegalArgumentException("Room already booked for wanted dates");
+        }
+    }
+
+    private Booking getConvertedBooking(BookRoomInput input, Room roomToBeBooked) {
         return conversionService.convert(input, Booking.BookingBuilder.class)
             .roomBooked(roomToBeBooked)
             .build();
@@ -73,7 +88,7 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
 
     private Room getRoom(BookRoomInput input) {
         return roomRepository.findById(UUID.fromString(input.getRoomId()))
-            .orElseThrow(()-> new NotFoundException(ErrorMessages.ROOM_NOT_FOUND));
+            .orElseThrow(() -> new NotFoundException(ErrorMessages.ROOM_NOT_FOUND));
     }
 }
 
