@@ -15,6 +15,10 @@
     <name>rest</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <start-class>com.tinqinacademy.hotel.rest.Application</start-class>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.tinqinacademy.hotel</groupId>
@@ -41,21 +45,23 @@
             <version>2.16.0</version>
         </dependency>
 
-
     </dependencies>
 
-
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <configuration>
-                        <mainClass>com.tinqinacademy.hotel.rest.Application</mainClass>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
+
 </project>

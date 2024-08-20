@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotel.restexport;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tinqinacademy.hotel.api.operations.addroom.AddRoomInput;
 import com.tinqinacademy.hotel.api.operations.addroom.AddRoomOutput;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
@@ -10,12 +9,12 @@ import com.tinqinacademy.hotel.api.operations.getavailablerooms.GetAvailableRoom
 import com.tinqinacademy.hotel.api.operations.getroominfobyid.GetRoomInfoByIdOutput;
 import com.tinqinacademy.hotel.api.operations.registervisitor.RegisterVisitorInput;
 import com.tinqinacademy.hotel.api.operations.registervisitor.RegisterVisitorOutput;
+import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfoOutput;
 import com.tinqinacademy.hotel.api.operations.unbookroom.UnbookRoomOutput;
 import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.operations.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotel.api.operations.updateroompartially.UpdateRoomPartiallyInput;
 import com.tinqinacademy.hotel.api.operations.updateroompartially.UpdateRoomPartiallyOutput;
-import com.tinqinacademy.hotel.api.operations.reportvisitorinfo.ReportVisitorsInfoOutput;
 import com.tinqinacademy.hotel.api.restapiroutes.RestApiRoutes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.format.annotation.DateTimeFormat;
