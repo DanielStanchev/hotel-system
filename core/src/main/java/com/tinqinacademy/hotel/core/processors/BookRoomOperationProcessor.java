@@ -21,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 import static io.vavr.API.$;
@@ -52,7 +51,7 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
 
     private Either<ErrorWrapper, BookRoomOutput> bookRoom(BookRoomInput input) {
         return Try.of(() -> {
-
+                checkBookingDatesValid(input);
                 Room roomToBeBooked = getRoom(input);
                 checkIfRoomHasAlreadyBookingForWantedDates(input, roomToBeBooked);
                 Booking bookingToSave = getConvertedBooking(input, roomToBeBooked);
@@ -70,13 +69,17 @@ public class BookRoomOperationProcessor extends BaseOperationProcessor implement
     }
 
     private void checkIfRoomHasAlreadyBookingForWantedDates(BookRoomInput input, Room roomToBeBooked) {
-        List<Booking> allRoomBookings = bookingRepository.findAllRoomBookings(roomToBeBooked.getId());
-        boolean isBooked = allRoomBookings.stream()
-            .anyMatch(booking -> input.getStartDate()
-                .isBefore(booking.getEndDate()) && input.getEndDate()
-                .isAfter(booking.getStartDate()));
-        if (isBooked) {
-            throw new IllegalArgumentException("Room already booked for wanted dates");
+        if (bookingRepository.checkRoomOccupied(roomToBeBooked.getId(), input.getEndDate(), input.getEndDate())) {
+            throw new IllegalArgumentException("Room is occupied in the dates wanted)");
+        }
+    }
+
+    private void checkBookingDatesValid(BookRoomInput input) {
+        if(input.getStartDate().isAfter(input.getEndDate())) {
+            throw new IllegalArgumentException("Start date must be after end date");
+        }
+        if(input.getStartDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Start date must be after today's date");
         }
     }
 

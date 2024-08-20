@@ -1,7 +1,6 @@
 package com.tinqinacademy.hotel.persistence.repository;
 
 import com.tinqinacademy.hotel.persistence.entity.Booking;
-import com.tinqinacademy.hotel.persistence.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -27,6 +26,11 @@ public interface BookingRepository extends JpaRepository<Booking, UUID>, JpaSpec
     List<Booking> findBookingByRoomId(@Param("id") UUID id,
                                       @Param("currentDate") LocalDate currentDate);
 
-    @Query("SELECT b FROM Booking b WHERE b.roomBooked.id=:roomId")
-    List<Booking> findAllRoomBookings(@Param("roomId") UUID roomId);
+    @Query(
+        "SELECT EXISTS(SELECT 1 FROM Booking b WHERE b.roomBooked.id = :roomId AND "
+            + "(b.startDate <= :endDate AND b.endDate >= :startDate))")
+    boolean checkRoomOccupied(
+        @Param("roomId") UUID roomId,
+        @Param("startDate") LocalDate startDate,
+        @Param("endDate") LocalDate endDate);
 }

@@ -16,6 +16,7 @@ services:
       - mynetwork
 
   hotel:
+    container_name: hotel
     build:
       context: .
       dockerfile: Dockerfile
@@ -31,6 +32,7 @@ services:
       - mynetwork
 
   comments:
+    container_name: comments
     build:
       context: ../comments
       dockerfile: Dockerfile
@@ -46,6 +48,7 @@ services:
       - mynetwork
 
   authentication:
+    container_name: authentication
     build:
       context: ../authentication
       dockerfile: Dockerfile
@@ -61,6 +64,7 @@ services:
       - mynetwork
 
   bff:
+    container_name: bff
     build:
       context: ../bff
       dockerfile: Dockerfile
@@ -74,6 +78,7 @@ services:
       - hotel
       - comments
       - authentication
+      - postgres
     networks:
       - mynetwork
 
