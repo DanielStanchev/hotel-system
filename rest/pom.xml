@@ -15,10 +15,6 @@
     <name>rest</name>
     <packaging>jar</packaging>
 
-    <properties>
-        <start-class>com.tinqinacademy.hotel.rest.Application</start-class>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.tinqinacademy.hotel</groupId>
