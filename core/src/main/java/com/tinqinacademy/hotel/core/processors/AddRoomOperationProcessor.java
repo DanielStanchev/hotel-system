@@ -57,6 +57,7 @@ public class AddRoomOperationProcessor extends BaseOperationProcessor implements
 
         return  Try.of(()-> {
                 List<Bed> bedsToSave = getBeds(input.getBeds());
+                checkRoomWithNumberExists(input);
                 Room roomToSave = getConvertedRoom(input, bedsToSave);
                 checkCountOfBedCountWithCountOfBedsAdded(input, bedsToSave);
                 roomRepository.save(roomToSave);
@@ -75,6 +76,12 @@ public class AddRoomOperationProcessor extends BaseOperationProcessor implements
                 Case($(instanceOf(IllegalArgumentException.class)), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST)),
                 Case($(), errorMapper.handleError(throwable, HttpStatus.BAD_REQUEST))
             ));
+    }
+
+    private void checkRoomWithNumberExists(AddRoomInput input) {
+        if (roomRepository.findRoomByRoomNo(input.getRoomNo()).isPresent()) {
+            throw new IllegalArgumentException("Room with number such number already exists");
+        }
     }
 
     private static void checkCountOfBedCountWithCountOfBedsAdded(AddRoomInput input, List<Bed> bedsToSave) {

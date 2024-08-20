@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -36,4 +37,6 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
                                   @Param("bedCount") Integer bedCount,
                                   @Param("beds") List<BedSize> beds,
                                   @Param("bathroomType") BathroomType bathroomType);
+
+    Optional<Room> findRoomByRoomNo(String roomNo);
 }
