@@ -64,8 +64,9 @@ public class SystemController extends BaseController{
 
     @Operation(summary = "Register a guest in existing booking.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "CREATED"),
-        @ApiResponse(responseCode = "400", description = "BAD REQUEST")})
+        @ApiResponse(responseCode = "201", description = "Created"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @PostMapping(RestApiRoutes.SYSTEM_REGISTER_VISITOR)
     public ResponseEntity<?> register(@RequestBody RegisterVisitorInput registerVisitorInput) {
 
@@ -89,8 +90,9 @@ public class SystemController extends BaseController{
 
     @Operation(summary = "Get basic info by various criteria.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "OK"),
-        @ApiResponse(responseCode = "404", description = "Not found")})
+        @ApiResponse(responseCode = "200", description = "Ok"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @GetMapping(RestApiRoutes.SYSTEM_REPORT_VISITOR_INFO)
     public ResponseEntity<?> report(
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> startDate,
@@ -123,8 +125,9 @@ public class SystemController extends BaseController{
 
     @Operation(summary = "Create a room.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "CREATED"),
-        @ApiResponse(responseCode = "400", description = "BAD REQUEST")})
+        @ApiResponse(responseCode = "201", description = "Created"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @PostMapping(RestApiRoutes.SYSTEM_CREATE_ROOM)
     public ResponseEntity<?> addRoom(@RequestBody AddRoomInput addRoomInput) {
 
@@ -143,8 +146,9 @@ public class SystemController extends BaseController{
 
     @Operation(summary = "Update room.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "OK"),
-        @ApiResponse(responseCode = "400", description = "BAD REQUEST")})
+        @ApiResponse(responseCode = "200", description = "Ok"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @PutMapping(RestApiRoutes.SYSTEM_UPDATE_ROOM)
     public ResponseEntity<?> updateRoom(@RequestBody UpdateRoomInput updateRoomInput,
                                         @PathVariable("roomId") String roomId) {
@@ -165,8 +169,9 @@ public class SystemController extends BaseController{
 
     @Operation(summary = "Update room partially.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "OK"),
-        @ApiResponse(responseCode = "400", description = "BAD REQUEST")})
+        @ApiResponse(responseCode = "200", description = "Ok"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @PatchMapping(RestApiRoutes.SYSTEM_UPDATE_ROOM_PARTIALLY)
     public ResponseEntity<?> updateRoomPartially(@PathVariable("roomId") String roomId,
                                                  @RequestBody UpdateRoomPartiallyInput updateRoomPartiallyInput) {
@@ -187,7 +192,9 @@ public class SystemController extends BaseController{
 
     @Operation(summary = "Delete room.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "OK")
+        @ApiResponse(responseCode = "200", description = "Ok"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")
     })
     @DeleteMapping(RestApiRoutes.SYSTEM_DELETE_ROOM)
     public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String roomId){
