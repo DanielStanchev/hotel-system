@@ -1,7 +1,6 @@
 package com.tinqinacademy.hotel.rest.controllers;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tinqinacademy.hotel.api.exceptionmodel.ErrorWrapper;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoom;
 import com.tinqinacademy.hotel.api.operations.bookroom.BookRoomInput;
@@ -54,7 +53,8 @@ public class HotelController extends BaseController{
 
     @Operation(summary = "Get available rooms by criteria.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "OK"),
+        @ApiResponse(responseCode = "200", description = "Ok"),
+        @ApiResponse(responseCode = "400", description = "Bad request"),
         @ApiResponse(responseCode = "404", description = "Not found")})
     @GetMapping(RestApiRoutes.HOTEL_GET_AVAILABLE_ROOMS)
     public ResponseEntity<?> getAvailableRooms(@RequestParam(value = "startDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -77,8 +77,9 @@ public class HotelController extends BaseController{
 
     @Operation(summary = "Get room basic info by Id.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "OK"),
-        @ApiResponse(responseCode = "404", description = "Not found")})
+        @ApiResponse(responseCode = "200", description = "Ok"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @GetMapping(RestApiRoutes.HOTEL_GET_AVAILABLE_ROOMS_BY_ID)
     public ResponseEntity<?> getRoomInfoById(@PathVariable("roomId") String roomId) {
 
@@ -92,8 +93,9 @@ public class HotelController extends BaseController{
 
     @Operation(summary = "Book a room.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "CREATED"),
-        @ApiResponse(responseCode = "400", description = "BAD REQUEST")})
+        @ApiResponse(responseCode = "201", description = "Created"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @PostMapping(RestApiRoutes.HOTEL_BOOK_ROOM)
     public ResponseEntity<?> bookRoom(@PathVariable("roomId") String roomId,
                                       @RequestBody BookRoomInput bookRoomInput) {
@@ -111,7 +113,9 @@ public class HotelController extends BaseController{
 
     @Operation(summary = "Unbook a room.")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "OK")})
+        @ApiResponse(responseCode = "200", description = "OK"),
+        @ApiResponse(responseCode = "404", description = "Not found"),
+        @ApiResponse(responseCode = "400", description = "Bad request")})
     @DeleteMapping(RestApiRoutes.HOTEL_UNBOOK_ROOM)
     public ResponseEntity<?> unbook(@PathVariable("bookingId") String bookingId) {
 
