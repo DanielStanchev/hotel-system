@@ -35,18 +35,6 @@ public class Booking extends BaseEntity {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    //    @Column(name = "first_name",nullable = false)
-    //    private String firstName;
-    //
-    //    @Column(name = "last_name",nullable = false)
-    //    private String lastName;
-    //
-    //    @Column(name = "phone_no",nullable = false)
-    //    private String phoneNo;
-
-    //    @ManyToOne
-    //    private User userBooked;
-
     @ManyToOne
     private Room roomBooked;
 
